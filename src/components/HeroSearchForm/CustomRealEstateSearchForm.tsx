@@ -133,7 +133,7 @@ export const CustomRealEstateSearchForm = ({ className, formStyle = 'default' }:
     >
 
             {/* Load Smooch Sans font */}
-      <link
+      {/* <link
         href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@700&display=swap"
         rel="stylesheet"
       />
@@ -142,7 +142,7 @@ export const CustomRealEstateSearchForm = ({ className, formStyle = 'default' }:
       <link
         href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&display=swap"
         rel="stylesheet"
-      />
+      /> */}
       <Form
         className="flex flex-col sm:flex-row flex-wrap items-stretch gap-4 w-full"
         action={handleFormSubmit}

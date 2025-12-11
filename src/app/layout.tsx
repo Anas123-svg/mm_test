@@ -1,9 +1,24 @@
 import '@/styles/tailwind.css'
 import { Metadata } from 'next'
-import { Poppins } from 'next/font/google'
+// ⚠️ CHANGE: Added Google fonts using next/font/google
+import { Agdasima, Poppins, Smooch_Sans } from 'next/font/google'
 import 'rc-slider/assets/index.css'
 import CustomizeControl from './customize-control'
 import ThemeProvider from './theme-provider'
+
+// ⚠️ CHANGE: Added Smooch Sans via next/font/google
+const smoochSans = Smooch_Sans({
+  subsets: ['latin'],
+  weight: '700',
+  display: 'swap',
+})
+
+// ⚠️ CHANGE: Added Agdasima via next/font/google
+const agdasima = Agdasima({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  display: 'swap',
+})
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -22,14 +37,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={poppins.className}>
-
+    // ⚠️ CHANGE: All fonts applied here. Removed multiple <link> loads.
+    <html lang="en" className={` ${smoochSans.className} ${agdasima.className}`}>
       <head>
+        {/* ⚠️ CHANGE: Removed Google Fonts <link> tags to prevent duplicate loading */}
         {/* ✅ Add Smooch Sans font here */}
-        <link
+        {/* <link
           href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@700&display=swap"
           rel="stylesheet"
-        />
+        /> */}
       </head>
 
       <body className="bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100">

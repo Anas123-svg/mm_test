@@ -22,11 +22,11 @@ This guide documents all optimizations implemented to improve your website's Spe
 
 ### Code Pattern:
 ```tsx
-<link
-  rel="preload"
-  href="https://fonts.googleapis.com/css2?family=Agdasima:wght@700&display=swap"
-  as="style"
-/>
+// <link
+//   rel="preload"
+//   href="https://fonts.googleapis.com/css2?family=Agdasima:wght@700&display=swap"
+//   as="style"
+// />
 ```
 
 ---

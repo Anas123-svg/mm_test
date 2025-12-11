@@ -121,7 +121,7 @@ export const CustomBookSearchForm = ({ className, formStyle = 'default' }: Props
       }}
     >
       {/* Load Smooch Sans font */}
-      <link
+      {/* <link
         href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@700&display=swap"
         rel="stylesheet"
       />
@@ -130,7 +130,7 @@ export const CustomBookSearchForm = ({ className, formStyle = 'default' }: Props
       <link
         href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&display=swap"
         rel="stylesheet"
-      />
+      /> */}
 
 
 

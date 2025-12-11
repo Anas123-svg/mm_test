@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: false,
   
   // Performance optimizations
-  // swcMinify: true, // Use SWC for faster minification
+  swcMinify: true, // Use SWC for faster minification
   compress: true, // Enable gzip compression
   
   // Optimize images

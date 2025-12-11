@@ -82,7 +82,7 @@ const MobileNeighborhoodDropdown: React.FC<Props> = ({
   }, [neighborhoods])
   return (
     <div className="relative flex-1">
-            <link
+            {/* <link
         href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@700&display=swap"
         rel="stylesheet"
       />
@@ -91,7 +91,7 @@ const MobileNeighborhoodDropdown: React.FC<Props> = ({
       <link
         href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&display=swap"
         rel="stylesheet"
-      />
+      /> */}
 <button
   type="button"
   onClick={() => !disabled && setOpen(true)}

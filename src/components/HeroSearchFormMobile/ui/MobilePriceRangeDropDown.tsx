@@ -117,7 +117,7 @@ const MobilePriceRangeDropDown: React.FC<{ controlClass?: string; listingType?: 
   return (
     <div className="relative flex-1">
 
-      <link
+      {/* <link
         href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@700&display=swap"
         rel="stylesheet"
       />
@@ -126,7 +126,7 @@ const MobilePriceRangeDropDown: React.FC<{ controlClass?: string; listingType?: 
       <link
         href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&display=swap"
         rel="stylesheet"
-      />
+      /> */}
       <input type="hidden" name="min" value={String(minPrice)} />
       <input type="hidden" name="max" value={String(maxPrice)} />
 
