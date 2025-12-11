@@ -254,7 +254,7 @@ const CustomStaySearchFormMobile = () => {
     return (
         
         <Form id="form-hero-search-form-mobile" action={handleFormSubmit} className="flex w-full flex-col gap-y-3 p-4">
-            <link
+            {/* <link
         href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@700&display=swap"
         rel="stylesheet"
       />
@@ -263,7 +263,7 @@ const CustomStaySearchFormMobile = () => {
       <link
         href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&display=swap"
         rel="stylesheet"
-      />
+      /> */}
             <div className="mt-4">
                 <MobileBoroughDropdown
                     selectedBorough={selectedBorough}

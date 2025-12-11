@@ -122,7 +122,7 @@ const HeroSearchFormMobile = ({ className }: { className?: string }) => {
 
   return (
     <div className={clsx(className, 'relative z-10 w-full max-w-lg')}>
-                  <link
+                  {/* <link
         href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@700&display=swap"
         rel="stylesheet"
       />
@@ -131,7 +131,7 @@ const HeroSearchFormMobile = ({ className }: { className?: string }) => {
       <link
         href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&display=swap"
         rel="stylesheet"
-      />
+      /> */}
       {renderButtonOpenModal()}
       <Dialog as="div" className="relative z-max" onClose={closeModal} open={showModal}>
         <div className="fixed inset-0 bg-neutral-100 dark:bg-neutral-900">
