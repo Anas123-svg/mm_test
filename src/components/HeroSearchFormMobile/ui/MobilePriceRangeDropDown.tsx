@@ -33,8 +33,8 @@ const MobilePriceRangeDropDown: React.FC<{ controlClass?: string; listingType?: 
       { label: "$400 - $550", min: 400, max: 550 },
       { label: "$550 - $700", min: 550, max: 700 },
       { label: "$700 - $950", min: 700, max: 950 },
-      { label: "$950 - $1100", min: 950, max: 1100 },
-      { label: "$1100+", min: 1100, max: MAX_VALUE }
+      { label: "$950 - $1,100", min: 950, max: 1100 },
+      { label: "$1,100 - $1,500+", min: 1100, max: MAX_VALUE }
 
     ]
     : [

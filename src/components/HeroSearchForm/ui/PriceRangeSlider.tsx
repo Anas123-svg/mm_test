@@ -30,7 +30,7 @@ const PriceRangeDropdown: React.FC<PriceRangeDropdownProps> = ({ className, list
       { label: "$550 - $700", min: 550, max: 700 },
       { label: "$700 - $950", min: 700, max: 950 },
       { label: "$950 - $1,100", min: 950, max: 1100 },
-      { label: "$1,100 - $1,500", min: 1100, max: MAX_VALUE }
+      { label: "$1,100 - $1,500+", min: 1100, max: MAX_VALUE }
     ]
     : [
       { label: "$0 - $1000", min: 0, max: 100 },
@@ -386,7 +386,9 @@ const PriceRangeDropdown: React.FC<PriceRangeDropdownProps> = ({ className, list
                     textTransform: 'lowercase',
                   }}
                 >
-                  {maxInput}{isBook && ' per night'}
+                  {maxInput === MAX_VALUE.toString()
+                    ? `${maxInput}+${isBook ? ' per night' : ''}`
+                    : `${maxInput}${isBook ? ' per night' : ''}`}
                   {/* {maxInput}
                   {isBook && (
                     <span style={{ fontSize: '12px', textTransform: 'lowercase', marginLeft: '2px', fontWeight: 400 }}>
