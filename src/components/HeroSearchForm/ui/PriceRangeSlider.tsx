@@ -17,17 +17,18 @@ const PriceRangeDropdown: React.FC<PriceRangeDropdownProps> = ({ className, list
   const lt = (listingType || '').toString().toUpperCase();
   const isBook = lt === 'BOOK';
   const MIN_VALUE = 0;
-  const MAX_VALUE = isBook ? 100 : 100000;
-  const STEP = isBook ? 1 : 1000;
+  const MAX_VALUE = isBook ? 1500 : 100000;
+  const STEP = isBook ? 10 : 1000;
 
   // -------- Price Ranges List ----------
   const presetRanges = isBook
     ? [
-      { label: "$0 - $10", min: 0, max: 10 },
-      { label: "$10 - $25", min: 10, max: 25 },
-      { label: "$25 - $50", min: 25, max: 50 },
-      { label: "$50 - $75", min: 50, max: 75 },
-      { label: "$75 - $100", min: 75, max: 100 }
+      { label: "$0 - $100", min: 0, max: 100 },
+      { label: "$100 - $250", min: 100, max: 250 },
+      { label: "$250 - $400", min: 250, max: 400 },
+      { label: "$400 - $550", min: 400, max: 550 },
+      { label: "$550 - $750", min: 550, max: 750 },
+      { label: "$750+", min: 750, max: MAX_VALUE } 
     ]
     : [
       { label: "$0 - $100", min: 0, max: 100 },
@@ -99,11 +100,18 @@ const PriceRangeDropdown: React.FC<PriceRangeDropdownProps> = ({ className, list
           className="w-28 h-full px-4 py-3 text-xs font-semibold bg-white border border-black flex items-center justify-between uppercase tracking-wide"
           style={{ fontFamily: "Agdasima" }}
         >
-          <span 
-        style={{ fontFamily: "Agdasima", fontSize: '14px', fontWeight: 700 }}>
-            {minInput || "MIN"}{isBook && '/NIGHT'}
+          {/* <span
+            style={{ fontFamily: "Agdasima", fontSize: '14px', fontWeight: 700 }}>
+            {minInput || "MIN"}{isBook && ' per night'}
+          </span> */}
+          <span style={{ fontFamily: "Agdasima", fontSize: '14px', fontWeight: 700 }}>
+            ${minInput || "MIN"}
+            {isBook && (
+              <span style={{ fontSize: '10px', fontWeight: 400, textTransform: 'lowercase', marginLeft: '2px' }}>
+                per night
+              </span>
+            )}
           </span>
-
           <svg
             width="12"
             height="8"
@@ -139,10 +147,17 @@ const PriceRangeDropdown: React.FC<PriceRangeDropdownProps> = ({ className, list
           className="w-28 h-full px-4 py-3 text-xs font-semibold bg-white border border-black flex items-center justify-between uppercase tracking-wide"
           style={{ fontFamily: "Agdasima" }}
         >
+          {/* <span style={{ fontFamily: "Agdasima", fontSize: '14px', fontWeight: 700 }}>
+            {maxInput || "MAX"}{isBook && ' per night'}
+          </span> */}
           <span style={{ fontFamily: "Agdasima", fontSize: '14px', fontWeight: 700 }}>
-            {maxInput || "MAX"}{isBook && '/NIGHT'}
+            ${maxInput || "MAX"}
+            {isBook && (
+              <span style={{ fontSize: '10px', fontWeight: 400, textTransform: 'lowercase', marginLeft: '2px' }}>
+                per night
+              </span>
+            )}
           </span>
-
           <svg
             width="12"
             height="8"
@@ -276,7 +291,14 @@ const PriceRangeDropdown: React.FC<PriceRangeDropdownProps> = ({ className, list
                   textTransform: 'uppercase',
                 }}
               >
-                Min Price{isBook && ' / PER NIGHT'}
+                Min Price{isBook && ''}
+                {/* Min Price
+                {isBook && (
+                  <span style={{ fontSize: '12px', textTransform: 'lowercase', marginLeft: '2px', fontWeight: 400 }}>
+                    per night
+                  </span>
+                )} */}
+
               </label>
               <div className="flex items-center">
                 <span
@@ -302,31 +324,38 @@ const PriceRangeDropdown: React.FC<PriceRangeDropdownProps> = ({ className, list
                     lineHeight: '100%',
                     letterSpacing: '0%',
                     verticalAlign: 'middle',
-                    textTransform: 'uppercase',
+                    textTransform: 'lowercase',
                   }}
                 >
-                  {minInput}{isBook && '/NIGHT'}
+                  {minInput}{isBook && ' per night'}
+
+                  {/* {minInput} */}
+                  {/* {isBook && (
+                    <span style={{ fontSize: '12px', textTransform: 'lowercase', marginLeft: '2px', fontWeight: 400 }}>
+                      per night
+                    </span>
+                  )} */}
                 </span>
               </div>
             </div>
 
             <div className="border-2 border-black p-3">
-<label
-  style={{
-    fontFamily: 'Agdasima',
-    fontWeight: 700,
-    fontStyle: 'normal', // Bold is controlled by fontWeight
-    fontSize: '14px',
-    lineHeight: '100%',
-    letterSpacing: '0%',
-    verticalAlign: 'middle',
-    textTransform: 'uppercase',
-    marginBottom: '0.375rem', // corresponds to mb-1.5
-    display: 'block',
-  }}
->
-  Max Price{isBook && ' / PER NIGHT'}
-</label>
+              <label
+                style={{
+                  fontFamily: 'Agdasima',
+                  fontWeight: 700,
+                  fontStyle: 'normal', // Bold is controlled by fontWeight
+                  fontSize: '14px',
+                  lineHeight: '100%',
+                  letterSpacing: '0%',
+                  verticalAlign: 'middle',
+                  textTransform: 'uppercase',
+                  marginBottom: '0.375rem', // corresponds to mb-1.5
+                  display: 'block',
+                }}
+              >
+                Max Price{isBook && ''}
+              </label>
               <div className="flex items-center">
                 <span
                   style={{
@@ -351,10 +380,17 @@ const PriceRangeDropdown: React.FC<PriceRangeDropdownProps> = ({ className, list
                     lineHeight: '100%',
                     letterSpacing: '0%',
                     verticalAlign: 'middle',
-                    textTransform: 'uppercase',
+                    textTransform: 'lowercase',
                   }}
                 >
-                  {maxInput}{isBook && '/NIGHT'}
+                  {maxInput}{isBook && ' per night'}
+                  {/* {maxInput}
+                  {isBook && (
+                    <span style={{ fontSize: '12px', textTransform: 'lowercase', marginLeft: '2px', fontWeight: 400 }}>
+                      per night
+                    </span>
+                  )} */}
+
                 </span>
               </div>
             </div>

@@ -37,10 +37,18 @@ const nycBoroughsData: Borough[] = [
     ...StatenIslandData,
 ]
 
+const allFiveBoroughNeighborhoods: Neighborhood[] = [
+    ...ManhattanData,
+    ...BronxData,
+    ...BrooklynData,
+    ...QueensData,
+    ...StatenIslandData,
+].flatMap(b => b.neighborhoods ?? [])
+
 const CustomStaySearchFormMobile = () => {
     const [selectedBorough, setSelectedBorough] = useState<string>('')
     const [selectedPropertyType, setSelectedPropertyType] = useState<string>('')
-    const [availableNeighborhoods, setAvailableNeighborhoods] = useState<Neighborhood[]>([])
+    const [availableNeighborhoods, setAvailableNeighborhoods] = useState<Neighborhood[]>(allFiveBoroughNeighborhoods)
     const [selectedNeighborhoods, setSelectedNeighborhoods] = useState<string[]>([])
     const [locationInputTo, setLocationInputTo] = useState('')
     const [guestInput, setGuestInput] = useState<GuestsObject>({
@@ -234,11 +242,16 @@ const CustomStaySearchFormMobile = () => {
         setSelectedBorough(borough)
         setSelectedNeighborhoods([])
 
+        if (!borough) {
+            setAvailableNeighborhoods(allFiveBoroughNeighborhoods)
+            return
+        }
+
         const boroughData = nycBoroughsData.find(b => b.name === borough)
         if (boroughData) {
             setAvailableNeighborhoods(boroughData.neighborhoods)
         } else {
-            setAvailableNeighborhoods([])
+            setAvailableNeighborhoods(allFiveBoroughNeighborhoods)
         }
     }
 
@@ -277,7 +290,6 @@ const CustomStaySearchFormMobile = () => {
                 neighborhoods={availableNeighborhoods}
                 selectedNeighborhoods={selectedNeighborhoods}
                 onChange={handleNeighborhoodChange}
-                disabled={!selectedBorough}
             />
 
             <MobilePriceRangeDropDown listingType="BOOK" />

@@ -38,10 +38,18 @@ const nycBoroughsData: Borough[] = [
     ...StatenIslandData,
 ]
 
+const allFiveBoroughNeighborhoods: Neighborhood[] = [
+    ...ManhattanData,
+    ...BronxData,
+    ...BrooklynData,
+    ...QueensData,
+    ...StatenIslandData,
+].flatMap(b => b.neighborhoods ?? [])
+
 const CustomRealEstateSearchFormMobile = () => {
     const [selectedBorough, setSelectedBorough] = useState<string>('')
     const [selectedPropertyType, setSelectedPropertyType] = useState<string>('')
-    const [availableNeighborhoods, setAvailableNeighborhoods] = useState<Neighborhood[]>([])
+    const [availableNeighborhoods, setAvailableNeighborhoods] = useState<Neighborhood[]>(allFiveBoroughNeighborhoods)
     const [selectedNeighborhoods, setSelectedNeighborhoods] = useState<string[]>([])
     const [locationInputTo, setLocationInputTo] = useState('')
     const [guestInput, setGuestInput] = useState<GuestsObject>({
@@ -253,11 +261,16 @@ const CustomRealEstateSearchFormMobile = () => {
         setSelectedBorough(borough)
         setSelectedNeighborhoods([])
 
+        if (!borough) {
+            setAvailableNeighborhoods(allFiveBoroughNeighborhoods)
+            return
+        }
+
         const boroughData = nycBoroughsData.find(b => b.name === borough)
         if (boroughData) {
             setAvailableNeighborhoods(boroughData.neighborhoods)
         } else {
-            setAvailableNeighborhoods([])
+            setAvailableNeighborhoods(allFiveBoroughNeighborhoods)
         }
     }
 
@@ -295,7 +308,6 @@ const CustomRealEstateSearchFormMobile = () => {
                 neighborhoods={availableNeighborhoods}
                 selectedNeighborhoods={selectedNeighborhoods}
                 onChange={handleNeighborhoodChange}
-                disabled={!selectedBorough}
             />
 
             <MobilePriceRangeDropDown listingType={listingMode === 'buy' ? 'BUY' : 'RENT'} />
@@ -416,7 +428,7 @@ const CustomRealEstateSearchFormMobile = () => {
                 )}
             </div>
 
-            Dates
+            {/* Dates
             <div className="rounded-xl overflow-hidden border border-gray-200 bg-white shadow-sm">
                 <button
                     type="button"
@@ -492,7 +504,7 @@ const CustomRealEstateSearchFormMobile = () => {
                         </div>
                     </div>
                 )}
-            </div>
+            </div> */}
 
             {/* Guests */}
             <div className="rounded-xl overflow-hidden border border-gray-200 bg-white shadow-sm">

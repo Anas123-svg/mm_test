@@ -42,11 +42,19 @@ const nycBoroughsData: Borough[] = [
   ...StatenIslandData,
 ]
 
+const allFiveBoroughNeighborhoods: Neighborhood[] = [
+  ...ManhattanData,
+  ...BronxData,
+  ...BrooklynData,
+  ...QueensData,
+  ...StatenIslandData,
+].flatMap(b => b.neighborhoods ?? [])
+
 export const CustomBookSearchForm = ({ className, formStyle = 'default' }: Props) => {
   const router = useRouter()
   const [selectedBorough, setSelectedBorough] = useState<string>('')
   const [selectedPropertyType, setSelectedPropertyType] = useState<string>('')
-  const [availableNeighborhoods, setAvailableNeighborhoods] = useState<Neighborhood[]>([])
+  const [availableNeighborhoods, setAvailableNeighborhoods] = useState<Neighborhood[]>(allFiveBoroughNeighborhoods)
   const [selectedNeighborhoods, setSelectedNeighborhoods] = useState<string[]>([])
 
   useEffect(() => {
@@ -56,8 +64,13 @@ export const CustomBookSearchForm = ({ className, formStyle = 'default' }: Props
   const handleBoroughChange = (borough: string) => {
     setSelectedBorough(borough)
     setSelectedNeighborhoods([])
+    if (!borough) {
+      setAvailableNeighborhoods(allFiveBoroughNeighborhoods)
+      return
+    }
+
     const boroughData = nycBoroughsData.find(b => b.name === borough)
-    setAvailableNeighborhoods(boroughData ? boroughData.neighborhoods : [])
+    setAvailableNeighborhoods(boroughData ? boroughData.neighborhoods : allFiveBoroughNeighborhoods)
   }
 
 
@@ -112,7 +125,7 @@ export const CustomBookSearchForm = ({ className, formStyle = 'default' }: Props
       style={{
         fontFamily: "'Smooch Sans', 'Agdasima",
         fontWeight: 700,
-        fontStyle: 'normal', 
+        fontStyle: 'normal',
         fontSize: '24px',
         lineHeight: '16px',
         letterSpacing: '0%',
@@ -140,8 +153,9 @@ export const CustomBookSearchForm = ({ className, formStyle = 'default' }: Props
       >
         {/* Book Button */}
         <div className="flex-shrink-0 flex items-center justify-center bg-black px-4 py-2 border border-black">
-          <span className="text-white">BOOK</span>
+          <span className="text-white text-[24px] font-bold">BOOK</span>
         </div>
+
 
         {/* Borough Dropdown */}
         <BoroughDropdown
@@ -157,7 +171,6 @@ export const CustomBookSearchForm = ({ className, formStyle = 'default' }: Props
           neighborhoods={availableNeighborhoods}
           selectedNeighborhoods={selectedNeighborhoods}
           onChange={handleNeighborhoodChange}
-          disabled={!selectedBorough}
           className="flex-1 min-w-[120px]"
         />
 
@@ -170,22 +183,44 @@ export const CustomBookSearchForm = ({ className, formStyle = 'default' }: Props
           onChange={handlePropertyChange}
           selectedType={selectedPropertyType}
           className="flex-1 min-w-[120px]"
+          isBook={true}
         />
 
         {/* More Dropdown */}
         <MoreDropdown className="flex-1 min-w-[120px]" />
 
         {/* Search Button */}
-        <button
-          type="submit"
-          className="flex-shrink-0 bg-black px-4 py-2 flex items-center justify-center gap-2 hover:bg-gray-900 transition-colors border border-black"
-        >
-          <span className="text-white">SEARCH</span>
-          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <circle cx="11" cy="11" r="8" strokeWidth="2" />
-            <path d="m21 21-4.35-4.35" strokeWidth="2" strokeLinecap="round" />
-          </svg>
-        </button>
+<button
+  type="submit"
+  className="flex-shrink-0 bg-black px-4 py-2 flex items-center justify-center gap-2 hover:bg-gray-900 transition-colors border border-black"
+>
+  <span className="text-white text-[24px] font-bold">SEARCH</span>
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle
+      cx="11"
+      cy="11"
+      r="8"
+      stroke="white"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M21 21L16.65 16.65"
+      stroke="white"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+  </svg>
+</button>
+
+
       </Form>
     </div>
   );

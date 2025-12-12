@@ -42,6 +42,14 @@ const nycBoroughsData: Borough[] = [
   ...StatenIslandData,
 ]
 
+const allFiveBoroughNeighborhoods: Neighborhood[] = [
+  ...ManhattanData,
+  ...BronxData,
+  ...BrooklynData,
+  ...QueensData,
+  ...StatenIslandData,
+].flatMap(b => b.neighborhoods ?? [])
+
 export const CustomRealEstateSearchForm = ({ className, formStyle = 'default' }: Props) => {
   const router = useRouter()
   const [listingMode, setListingMode] = useState<'buy' | 'rent'>(() => {
@@ -61,7 +69,7 @@ export const CustomRealEstateSearchForm = ({ className, formStyle = 'default' }:
   }, [listingMode])
   const [selectedBorough, setSelectedBorough] = useState<string>('')
   const [selectedPropertyType, setSelectedPropertyType] = useState<string>('')
-  const [availableNeighborhoods, setAvailableNeighborhoods] = useState<Neighborhood[]>([])
+  const [availableNeighborhoods, setAvailableNeighborhoods] = useState<Neighborhood[]>(allFiveBoroughNeighborhoods)
   const [selectedNeighborhoods, setSelectedNeighborhoods] = useState<string[]>([])
 
   useEffect(() => {
@@ -71,8 +79,14 @@ export const CustomRealEstateSearchForm = ({ className, formStyle = 'default' }:
   const handleBoroughChange = (borough: string) => {
     setSelectedBorough(borough)
     setSelectedNeighborhoods([])
+
+    if (!borough) {
+      setAvailableNeighborhoods(allFiveBoroughNeighborhoods)
+      return
+    }
+
     const boroughData = nycBoroughsData.find(b => b.name === borough)
-    setAvailableNeighborhoods(boroughData ? boroughData.neighborhoods : [])
+    setAvailableNeighborhoods(boroughData ? boroughData.neighborhoods : allFiveBoroughNeighborhoods)
   }
 
   const handlePropertyChange = (propertyType: string) => setSelectedPropertyType(propertyType)
@@ -189,7 +203,6 @@ export const CustomRealEstateSearchForm = ({ className, formStyle = 'default' }:
           neighborhoods={availableNeighborhoods}
           selectedNeighborhoods={selectedNeighborhoods}
           onChange={handleNeighborhoodChange}
-          disabled={!selectedBorough}
           className="flex-1 min-w-[120px]"
         />
 
@@ -201,6 +214,7 @@ export const CustomRealEstateSearchForm = ({ className, formStyle = 'default' }:
           onChange={handlePropertyChange}
           selectedType={selectedPropertyType}
           className="flex-1 min-w-[120px]"
+          listingMode={listingMode} 
         />
 
         {/* More Dropdown */}
@@ -216,10 +230,29 @@ export const CustomRealEstateSearchForm = ({ className, formStyle = 'default' }:
           style={{ fontWeight: 700, fontSize: '24px', lineHeight: '16px', fontFamily: "'Smooch Sans', sans-serif" }}
         >
           <span className="text-white">SEARCH</span>
-          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <circle cx="11" cy="11" r="8" strokeWidth="2" />
-            <path d="m21 21-4.35-4.35" strokeWidth="2" strokeLinecap="round" />
-          </svg>
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle
+      cx="11"
+      cy="11"
+      r="8"
+      stroke="white"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M21 21L16.65 16.65"
+      stroke="white"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+  </svg>
         </button>
       </Form>
     </div>

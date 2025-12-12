@@ -209,7 +209,7 @@ const MoreDropdown: React.FC<MoreDropdownProps> = ({ className, listingMode }) =
                     )}
 
                     {/* Check In - Check Out */}
-                    <div className="border-b border-gray-200">
+                    {!isBuyOrRent  && (<div className="border-b border-gray-200">
                         <button
                             type="button"
                             onClick={() => setActiveSubmenu(activeSubmenu === 'dates' ? null : 'dates')}
@@ -273,7 +273,8 @@ const MoreDropdown: React.FC<MoreDropdownProps> = ({ className, listingMode }) =
                                     </div>
                                 </div>
                             )}
-                    </div>
+                    </div>)
+}
 
                     {/* Guests */}
                     <div className="border-b border-gray-200">
