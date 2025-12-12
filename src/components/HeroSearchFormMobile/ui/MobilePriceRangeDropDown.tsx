@@ -22,27 +22,31 @@ const MobilePriceRangeDropDown: React.FC<{ controlClass?: string; listingType?: 
 
   const isBook = listingType === 'BOOK'
   const MIN_VALUE = 0
-  const MAX_VALUE = isBook ? 100 : 100000
+  const MAX_VALUE = isBook ? 1500 : 100000
   const STEP = isBook ? 1 : 100
 
   const presetRanges = isBook
     ? [
-        { label: '$0 - $10', min: 0, max: 10 },
-        { label: '$10 - $25', min: 10, max: 25 },
-        { label: '$25 - $50', min: 25, max: 50 },
-        { label: '$50 - $75', min: 50, max: 75 },
-        { label: '$75 - $100', min: 75, max: 100 }
-      ]
+      { label: "$0 - $100", min: 0, max: 100 },
+      { label: "$100 - $250", min: 100, max: 250 },
+      { label: "$250 - $400", min: 250, max: 400 },
+      { label: "$400 - $550", min: 400, max: 550 },
+      { label: "$550 - $700", min: 550, max: 700 },
+      { label: "$700 - $950", min: 700, max: 950 },
+      { label: "$950 - $1100", min: 950, max: 1100 },
+      { label: "$1100+", min: 1100, max: MAX_VALUE }
+
+    ]
     : [
-        { label: '$0 - $100', min: 0, max: 100 },
-        { label: '$100 - $500', min: 100, max: 500 },
-        { label: '$500 - $1,000', min: 500, max: 1000 },
-        { label: '$1,000 - $2,000', min: 1000, max: 2000 },
-        { label: '$2,000 - $5,000', min: 2000, max: 5000 },
-        { label: '$5,000 - $10,000', min: 5000, max: 10000 },
-        { label: '$10K - $50K', min: 10000, max: 50000 },
-        { label: '$50K - $100K', min: 50000, max: 100000 }
-      ]
+      { label: "$0 - $1000", min: 0, max: 100 },
+      { label: "$1001 - $1500", min: 101, max: 500 },
+      { label: "$1501 - $2,000", min: 1501, max: 2000 },
+      { label: "$2,001 - $2,500", min: 2001, max: 2500 },
+      { label: "$2,501 - $3,000", min: 2501, max: 3000 },
+      { label: "$3,001 - $4,000", min: 3001, max: 4000 },
+      { label: "$4,001 - $5,000", min: 4001, max: 5000 },
+      { label: "$5,001+", min: 5001, max: MAX_VALUE },
+    ]
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -75,7 +79,7 @@ const MobilePriceRangeDropDown: React.FC<{ controlClass?: string; listingType?: 
       }
       const v = (sessionStorage.getItem('selected_listing_type') || '').toUpperCase()
       setListingType(v === 'RENT' || v === 'BUY' ? v : 'BUY')
-    } catch {}
+    } catch { }
   }, [listingTypeProp])
 
   // react to prop changes
@@ -84,7 +88,7 @@ const MobilePriceRangeDropDown: React.FC<{ controlClass?: string; listingType?: 
   }, [listingTypeProp])
 
   const formatPrice = (v: number) => {
-    if (isBook) return `${v} USD`
+    if (isBook) return `${v}`
     if (v >= 1000000) return `${(v / 1000000).toFixed(1)}M`
     if (v >= 1000) return `${Math.round(v / 1000)}K`
     return String(v)
@@ -143,7 +147,7 @@ const MobilePriceRangeDropDown: React.FC<{ controlClass?: string; listingType?: 
         }}
       >
         <span className="truncate" style={{ fontFamily: "Agdasima" }}>
-          {formatPrice(minPrice)}{isBook && '/NIGHT'} - {formatPrice(maxPrice)}{isBook && '/NIGHT'}
+          ${formatPrice(minPrice)}{isBook && ' per night'} - ${formatPrice(maxPrice)}{isBook && ' per night'}
         </span>
 
         <svg width="12" height="8" viewBox="0 0 12 8" fill="none" className="ml-2">
@@ -247,7 +251,7 @@ const MobilePriceRangeDropDown: React.FC<{ controlClass?: string; listingType?: 
                   className="block text-[9px] font-bold uppercase mb-1"
                   style={{ fontFamily: "Smooch Sans", fontSize: "18px" }}
                 >
-                  Min Price{isBook && ' / PER NIGHT'}
+                  Min Price{isBook && ''}
                 </label>
                 <input
                   type="text"
@@ -267,7 +271,7 @@ const MobilePriceRangeDropDown: React.FC<{ controlClass?: string; listingType?: 
                   className="block text-[9px] font-bold uppercase mb-1"
                   style={{ fontFamily: "Smooch Sans", fontSize: "18px" }}
                 >
-                  Max Price{isBook && ' / PER NIGHT'}
+                  Max Price{isBook && ''}
                 </label>
                 <input
                   type="text"

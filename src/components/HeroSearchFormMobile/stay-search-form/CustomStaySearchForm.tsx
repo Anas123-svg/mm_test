@@ -297,6 +297,7 @@ const CustomStaySearchFormMobile = () => {
             <MobilePropertyTypeDropDown
                 onChange={handlePropertyChange}
                 selectedType={selectedPropertyType}
+                isBook={true}
             />
 
             {/* Bathrooms */}

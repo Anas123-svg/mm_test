@@ -315,6 +315,7 @@ const CustomRealEstateSearchFormMobile = () => {
             <MobilePropertyTypeDropDown
                 onChange={handlePropertyChange}
                 selectedType={selectedPropertyType}
+                listingMode={listingMode}
             />
 
             {/* Bathrooms */}

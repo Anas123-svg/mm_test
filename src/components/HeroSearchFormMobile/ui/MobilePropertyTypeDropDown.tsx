@@ -1,19 +1,93 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 
 interface Props {
   selectedType?: string
   onChange: (type: string) => void
   controlClass?: string
   propertyTypes?: string[]
+  listingMode?: 'buy' | 'rent'
+  isBook?: boolean
 }
 
-const MobilePropertyTypeDropDown: React.FC<Props> = ({ selectedType, onChange, controlClass, propertyTypes }) => {
+const MobilePropertyTypeDropDown: React.FC<Props> = ({
+  selectedType,
+  onChange,
+  controlClass,
+  propertyTypes,
+  listingMode = 'buy',
+  isBook = false,
+}) => {
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState('')
   const panelRef = useRef<HTMLDivElement | null>(null)
+  const [effectiveMode, setEffectiveMode] = useState<'buy' | 'rent'>(listingMode)
 
-  const defaultTypes = ['Apartment', 'Room', 'House', 'Hotel']
-  const types = propertyTypes && propertyTypes.length ? propertyTypes : defaultTypes
+  const bookTypes = ['Apartment', 'Room', 'House', 'Hotel']
+
+  const buyTypes = useMemo(() => [
+    'Single-Family Home',
+    'Condominium (Condo)',
+    'Townhouse',
+    'Multi-Family',
+    'Manufactured/Mobile Home',
+    'Office',
+    'Retail',
+    'Industrial',
+    'Hospitality',
+    'Vacant Land/Lots',
+    'Agricultural',
+    'Infill/Brownfield',
+    'Special Purpose',
+    'Business Opportunity',
+    'Co-op/Condop',
+  ], [])
+
+  const rentTypes = useMemo(() => [
+    'Apartments',
+    'Condos/Co-ops',
+    'Houses',
+    'Townhomes/Townhouses',
+    'Duplex/Triplex/Fourplex',
+    'Brownstones/Walk-ups',
+    'Mobile/Manufactured Homes',
+    'Office/Industrial',
+    'Retail/Restaurant',
+    'Vacation Homes/Short-Term',
+    'Specialty',
+    'Market Rate',
+    'Rent-Controlled/Stabilized',
+    'Subsidized',
+  ], [])
+
+  const types = useMemo(() => {
+    if (propertyTypes && propertyTypes.length) return propertyTypes
+    if (isBook) return bookTypes
+    return effectiveMode === 'buy' ? buyTypes : rentTypes
+  }, [propertyTypes, isBook, effectiveMode, bookTypes, buyTypes, rentTypes])
+
+  useEffect(() => {
+    setEffectiveMode(listingMode)
+  }, [listingMode])
+
+  useEffect(() => {
+    if (!open) return
+    try {
+      const v = sessionStorage.getItem('selected_listing_type')
+      if (v === 'rent' || v === 'buy') setEffectiveMode(v)
+    } catch {}
+  }, [open])
+
+  useEffect(() => {
+    setEffectiveMode(listingMode)
+  }, [listingMode])
+
+  useEffect(() => {
+    if (!open) return
+    try {
+      const v = sessionStorage.getItem('selected_listing_type')
+      if (v === 'rent' || v === 'buy') setEffectiveMode(v)
+    } catch {}
+  }, [open])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {

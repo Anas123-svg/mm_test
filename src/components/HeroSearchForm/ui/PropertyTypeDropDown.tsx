@@ -22,6 +22,24 @@ export const PropertyTypeDropDown: React.FC<PropertyTypeDropDownProps> = ({
   const [search, setSearch] = useState("")
   const dropdownRef = useRef<HTMLDivElement>(null)
 
+  // Close dropdown when clicking outside (applies to all modes)
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false)
+        setSearch("")
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isOpen])
+
   const bookPropertyTypes = [
     'Apartment',
     'Room',
@@ -184,24 +202,6 @@ export const PropertyTypeDropDown: React.FC<PropertyTypeDropDownProps> = ({
         item.toLowerCase().includes(search.toLowerCase())
       )
     : null // null means show categorized view
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false)
-        setSearch("")
-      }
-    }
-
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside)
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [isOpen])
 
   return (
     <>

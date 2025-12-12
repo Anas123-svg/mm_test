@@ -27,18 +27,21 @@ const PriceRangeDropdown: React.FC<PriceRangeDropdownProps> = ({ className, list
       { label: "$100 - $250", min: 100, max: 250 },
       { label: "$250 - $400", min: 250, max: 400 },
       { label: "$400 - $550", min: 400, max: 550 },
-      { label: "$550 - $750", min: 550, max: 750 },
-      { label: "$750+", min: 750, max: MAX_VALUE } 
+      { label: "$550 - $700", min: 550, max: 700 },
+      { label: "$700 - $950", min: 700, max: 950 },
+      { label: "$950 - $1,100", min: 950, max: 1100 },
+      { label: "$1,100 - $1,500", min: 1100, max: MAX_VALUE }
     ]
     : [
-      { label: "$0 - $100", min: 0, max: 100 },
-      { label: "$100 - $500", min: 100, max: 500 },
-      { label: "$500 - $1,000", min: 500, max: 1000 },
-      { label: "$1,000 - $2,000", min: 1000, max: 2000 },
-      { label: "$2,000 - $5,000", min: 2000, max: 5000 },
-      { label: "$5,000 - $10,000", min: 5000, max: 10000 },
-      { label: "$10K - $50K", min: 10000, max: 50000 },
-      { label: "$50K - $100K", min: 50000, max: 100000 }
+      { label: "$0 - $1000", min: 0, max: 100 },
+      { label: "$1001 - $1500", min: 101, max: 500 },
+      { label: "$1501 - $2,000", min: 1501, max: 2000 },
+      { label: "$2,001 - $2,500", min: 2001, max: 2500 },
+      { label: "$2,501 - $3,000", min: 2501, max: 3000 },
+      { label: "$3,001 - $4,000", min: 3001, max: 4000 },
+      { label: "$4,001 - $5,000", min: 4001, max: 5000 },
+      { label: "$5,001+", min: 5001, max: MAX_VALUE },
+      // { label: "$50K - $100K", min: 50000, max: 100000 }
     ];
 
   useEffect(() => {
